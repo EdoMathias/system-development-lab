@@ -1,0 +1,6 @@
+The Input string:
+no newline at the end
+The string as received by the function:
+no newline at the end
+The string at the end of the function:
+on enilwen ta eht dne

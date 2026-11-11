@@ -1,38 +1,50 @@
 /*
- reverse_words.c
+    reverse_words.c
     
     Purpose: Reads one line from stdin and reverses the letters of each word
-    in place, keeping every whitespace character where it was.
+    in-place. Whitespace characters are kept in place and in count.
 
-    Method: TODO: one or two sentences. A word is a run of non-whitespace
-    characters. Describe the single pass and how the swap is done.
+    Method: The program scans a string from left to right in one pass using a scanning index,
+    where whitespace is skipped, and for each word (a sub-string without whitespace),
+    it saves the index of the first character, and continues the scan until it reaches a whitespace
+    or the end of the string, where it then marks the second index on the character before the whitespace.
+    Before the scan continues, it performs an in-place swap by using the two indices to swap
+    the characters, moving the indices inwards until they meet.
+    When they meet, it continues to scan the rest of the string until the end of it.
 
-    Input: One line of text (ASCII) from stdin, keyboard or redirected file.
+    Input: One line of text from stdin, keyboard or redirected file.
 
-    Output: To stdout: the input string, the string as received by the
-    function, and the string after the change.
+    Output: Prints the input string, the string as received by the
+    function, and the string after reversal.
 */
 
 #include <stdio.h>
 #include <ctype.h>
 
+/* Maximum characters read from a line, limited to 100 as it is a round and easy to remember number */
+#define MAX_LENGTH 100
+
 /*
-    Reverses the characters of each word in a given string in-place.
-    White-space characters identified by isspace() are kept in place and in count.
+    Reverses the characters of each word in str, in-place.
+    Whitespace characters identified by isspace() are kept in place and in count.
+    Prints str before and after the reversal.
 */
 void reverse_words(char str[]);
 
 int main(void) {
 
     int curr_char;
-    char string[256];
+    char string[MAX_LENGTH + 1]; /* A string with MAX_LENGTH amount of characters and terminating '\0' */
     int index = 0;
 
-    while ((curr_char = getchar()) != EOF && curr_char != '\n' && index < 256) {
+    printf("Please enter an input of up to %d characters:\n", MAX_LENGTH);
+
+    while (index < MAX_LENGTH && (curr_char = getchar()) != EOF && curr_char != '\n') {
         string[index] = (char)curr_char;
         index++;
     }
 
+    /* Insert \0 to mark the end of the string */
     string[index] = '\0';
 
     printf("The Input string:\n");
@@ -47,23 +59,21 @@ void reverse_words(char str[]) {
     int index = 0;
     int first_char_index = index, last_char_index = index;
 
-    /* Print the string received by the function */
     printf("The string as received by the function:\n");
     printf("%s\n", str);
 
-    /* Reverse the string */
     while (str[index] != '\0') {
-        /* Skip spaces and tabs */
+        /* Skip whitespace to get to the word */
         while (isspace(str[index])) {
             index++;
         }
 
-        /* Edge case: whitespace only string */
+        /* Reached the end and did not find any characters */
         if (str[index] == '\0') {
             break;
         }
 
-        /* Flag index of first char of the word */
+        /* Mark first char of the current word */
         first_char_index = index;
 
         /* Find last char of current word */
@@ -71,9 +81,10 @@ void reverse_words(char str[]) {
             index++;
         }
 
+        /* Mark last char of the current word */
         last_char_index = index - 1;
 
-        /* Reverse current word */
+        /* Swap outer characters marked by indices, and move inwards */
         while (first_char_index < last_char_index) {
             char temp_char = str[first_char_index];
             str[first_char_index] = str[last_char_index];
@@ -84,7 +95,6 @@ void reverse_words(char str[]) {
         }
     }
 
-    /* Print the string post reversal */
     printf("The string at the end of the function:\n");
     printf("%s\n", str);
 }

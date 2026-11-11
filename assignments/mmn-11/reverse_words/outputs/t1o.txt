@@ -1,0 +1,6 @@
+The Input string:
+Hello World from C program!
+The string as received by the function:
+Hello World from C program!
+The string at the end of the function:
+olleH dlroW morf C !margorp

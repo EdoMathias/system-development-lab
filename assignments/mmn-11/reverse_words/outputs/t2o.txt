@@ -1,0 +1,6 @@
+The Input string:
+   leading  double	spaces   
+The string as received by the function:
+   leading  double	spaces   
+The string at the end of the function:
+   gnidael  elbuod	secaps   
