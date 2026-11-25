@@ -28,12 +28,13 @@
     Returns the number of set bits of a given unsigned long int
 */
 int count_ones(unsigned long int num);
-void print_binary(unsigned long int num);
 
 int main(void) {
 
     unsigned long int starting_num;
     int num_of_set_bits = 0;
+    int curr_bit = 0;
+    int index;
 
     printf("Please enter an unsigned long number: ");
 
@@ -41,8 +42,13 @@ int main(void) {
 
     printf("Original number in base 10: %lu\n", starting_num);
 
+    /* Print as binary, starting from the leftmost bit */
     printf("Original number in base 2:\n");
-    print_binary(starting_num);
+    for (index = (NUM_OF_BITS_INT - 1); index >= 0; index--) {
+        curr_bit = (starting_num >> index) & 1;
+        printf("%i", curr_bit);
+    }
+    printf("\n");
 
     num_of_set_bits = count_ones(starting_num);
 
@@ -66,16 +72,4 @@ int count_ones(unsigned long int num) {
     }
 
     return num_of_set_bits;
-}
-
-void print_binary(unsigned long int num) {
-    int curr_bit = 0;
-    int index;
-
-    /* Print as binary, starting from the left most bit */
-    for (index = (NUM_OF_BITS_INT - 1); index >= 0; index--) {
-        curr_bit = (num >> index) & 1;
-        printf("%i", curr_bit);
-    }
-    printf("\n");
 }
