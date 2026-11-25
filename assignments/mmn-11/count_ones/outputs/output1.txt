@@ -1,0 +1,5 @@
+Please enter an unsigned long number: Original number in base 10: 0
+Original number in base 2:
+0000000000000000000000000000000000000000000000000000000000000000
+Total set bits (1s): 0
+The count of set bits is EVEN.
