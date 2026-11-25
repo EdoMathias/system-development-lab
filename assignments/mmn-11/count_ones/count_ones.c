@@ -1,21 +1,32 @@
 /*
     count_ones.c
     
-    Purpose: 
+    Purpose: Reads an unsigned long number from the user and prints it in both
+    base 10 and base 2 (leading zeros included).
+    Then it counts the number of set bits, and prints if that count is EVEN or ODD.
 
-    Method: 
+    Method: It reads each bit by shifting right the unsigned long number based on
+    the bit's position, then masking it using 1 ((num >> i) & 1).
+    Bits are scanned from the leftmost bit to the rightmost bit.
+    The number of bits is computed using (sizeof(unsigned long) * CHAR_BIT) so the
+    total number of bits is based on the current system.
 
-    Input: ...
-    assumes valid input, as answered by the instructor in the course forum.
+    Input: A single unsigned long number from stdin, keyboard or redirected file.
+    It assumes a valid input, as answered by the instructor in the course forum.
 
-    Output: 
+    Output: Prints the number in base 10, base 2, the number of set bits and
+    whether that count is EVEN or ODD.
 */
 
 #include <stdio.h>
-#include <limits.h> /* Used for CHAR_BIT to not assume the byte size */
+#include <limits.h>
 
+/* Total number of bits in an unsigned long int on the current system */
 #define NUM_OF_BITS_INT (sizeof(unsigned long int) * CHAR_BIT)
 
+/*
+    Returns the number of set bits of a given unsigned long int
+*/
 int count_ones(unsigned long int num);
 void print_binary(unsigned long int num);
 
